@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CoinManagerDelegate {
+class ViewController: UIViewController {
     
     @IBOutlet weak var currencyLabel: UILabel!
     @IBOutlet weak var bitcoinLabel: UILabel!
@@ -30,6 +30,9 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         coinManager.getCoinPrice(for: currency)
     }
     
+}
+
+extension ViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1 // number of column
     }
@@ -37,22 +40,27 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return currencyArray.count
     }
+}
+
+
+extension ViewController: CoinManagerDelegate{
+    
+    func coinManager(_ coinManager: CoinManager, successGet rate: Double) {
+        bitcoinLabel.text = String(format: "%.1f", rate)
+    }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         currencyArray[row]
     }
     
+}
+
+extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let currency = currencyArray[row]
         currencyLabel.text = currency
         bitcoinLabel.text = nil
         coinManager.getCoinPrice(for: currency)
     }
-    
-    func coinManager(_ coinManager: CoinManager, successGet rate: Double) {
-        bitcoinLabel.text = String(format: "%.1f", rate)
-    }
-
-
 }
 
