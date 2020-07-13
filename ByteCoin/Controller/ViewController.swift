@@ -32,6 +32,8 @@ class ViewController: UIViewController {
     
 }
 
+//MARK: - UIPickerViewDataSource
+
 extension ViewController: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1 // number of column
@@ -42,6 +44,7 @@ extension ViewController: UIPickerViewDataSource {
     }
 }
 
+//MARK: - CoinManagerDelegate
 
 extension ViewController: CoinManagerDelegate{
     
@@ -54,6 +57,8 @@ extension ViewController: CoinManagerDelegate{
     }
     
 }
+
+//MARK: - UIPickerViewDelegate
 
 extension ViewController: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
